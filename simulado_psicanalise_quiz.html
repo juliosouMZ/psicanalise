@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<style>
+ body { background: #ffffff; font-family: Arial; color: #003366; }
+ h1 { text-align:center; color:#003399; margin-top:20px; }
+ .correct { background:#d4f8d4; border-left:5px solid #2ecc71; padding:8px; }
+ .incorrect { background:#f8d4d4; border-left:5px solid #e74c3c; padding:8px; }
+ button { background:#003399; color:white; padding:10px 16px; border:none; border-radius:6px; cursor:pointer; }
+ button:hover { background:#002266; }
+</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Simulado de Psicanálise — Quiz</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#06b6d4;--muted:#94a3b8;--text:#e6eef6}
+    body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:linear-gradient(180deg,#071026 0%, #07182b 100%); color:var(--text); margin:0; padding:32px;}
+    .container{max-width:900px;margin:0 auto;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:12px;padding:22px;box-shadow:0 6px 30px rgba(2,6,23,0.6)}
+    h1{margin:0 0 8px;font-size:22px}
+    p.lead{margin:0 0 18px;color:var(--muted)}
+    .question{padding:16px;border-radius:10px;background:rgba(255,255,255,0.02);margin-bottom:12px}
+    .q-title{font-weight:600;margin-bottom:10px}
+    .choices{display:grid;gap:8px}
+    .choice{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:10px;border-radius:8px;cursor:pointer}
+    .choice input{margin-right:10px}
+    .controls{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    button{background:var(--accent);color:#022; border:none;padding:10px 12px;border-radius:8px;cursor:pointer;font-weight:600}
+    button.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text)}
+    .footer{display:flex;justify-content:space-between;align-items:center;margin-top:16px}
+    .score{font-weight:700}
+    .result{padding:12px;border-radius:10px;background:rgba(2,6,23,0.6);margin-top:12px}
+    .correct{color:#86efac}
+    .wrong{color:#fda4af}
+    .small{font-size:13px;color:var(--muted)}
+    @media (max-width:600px){body{padding:18px}.container{padding:14px}}
+  </style>
+</head>
+<body>
+<h1>Caros amigos, que Deus nos ajude na prova de amanhã, questões tiradas do TEA e 9 bônus</h1>
+  <div class="container">
+    <h1>Simulado — Psicanálise e Personalidade</h1>
+    <p class="lead">30 questões de múltipla escolha. Clique em <strong>Enviar prova</strong> para ver seu resultado e os gabaritos. Boa sorte!</p>
+
+    <form id="quizForm">
+      <div id="questionsRoot"></div>
+
+      <div class="controls">
+        <button type="button" id="shuffleBtn" class="ghost">Embaralhar questões</button>
+        <button type="button" id="resetBtn" class="ghost">Limpar respostas</button>
+        <button type="submit">Enviar prova</button>
+      </div>
+    </form>
+
+    <div id="resultArea" style="display:none" class="result"></div>
+    <div style="margin-top:10px" class="small">Feito por você — arquivo para subir em qualquer servidor estático. Deseja PDF? Peça que eu gere.</div>
+  </div>
+
+  <script>
+    // Perguntas (30) — cada objeto: {q, choices:[], answer: index}
+    const questions = [
+      {q: 'Pedro, de 4 anos pega o carrinho do colega sem pedir. Pela estrutura freudiana, ele se deixa levar por:', choices:['Id','Ego','Superego','Distúrbio social','Fase fálica'], answer:0},
+      {q: 'Sobre o termo Psicanálise — I: teoria; II: método de investigação; III: prática profissional. Está correto:', choices:['I, apenas','II, apenas','III, apenas','I e II, apenas','I, II e III'], answer:4},
+      {q: 'Sofia, 15 anos, é faladeira, come o tempo todo e rói unhas. Em qual fase Freudiana está fixada?', choices:['Fase Oral','Fase Anal','Fase Fálica','Fase de latência','Fase genital'], answer:0},
+      {q: 'Aparecida, 15 anos, excessivamente organizada e controlada com mesada. Em qual fase está fixada?', choices:['Fase Oral','Fase Anal','Fase Fálica','Fase de latência','Fase genital'], answer:1},
+      {q: 'Principais fases do desenvolvimento psicossexual segundo Freud:', choices:['Oral, Anal, Fálica, Latência e Genital','Id, Ego e Superego','Consciente, Inconsciente e Pré-consciente','Oral, Fálica, Social, Anal e Latência','Biopsicossocial, oral e consciente'], answer:0},
+      {q: 'Sobre teorias do aparelho psíquico — I topográfica; II estrutural; instâncias (inconsciente, pré-consciente e consciente) e (id, ego, superego). Está correto:', choices:['I, II e III, apenas','I, III e IV, apenas','II, III e IV, apenas','I, II, III e IV','II e IV, apenas'], answer:3},
+      {q: 'Desejos sexuais expressos de forma assexuada (amizades, esportes, escola). Em qual fase está a criança?', choices:['Fase fálica','Fase de latência','Fase genital','Fase anal','Fase somática'], answer:1},
+      {q: 'Primeira fase em que a criança toma consciência das diferenças sexuais:', choices:['Fase oral','Fase anal','Fase de latência','Fase fálica','Fase genital'], answer:3},
+      {q: 'Repetição — Primeira fase em que a criança toma consciência das diferenças sexuais:', choices:['Fase oral','Fase anal','Fase de latência','Fase fálica','Fase genital'], answer:3},
+      {q: '"Perdi o dinheiro nesse negócio, porque Deus tem algo melhor para mim." Qual mecanismo de defesa?', choices:['Sublimação','Identificação','Compensação','Conversão','Holotomia'], answer:2},
+      {q: 'Processo de achar motivos aceitáveis para pensamentos inaceitáveis corresponde a:', choices:['Formação reativa','Negação','Racionalização','Catitimia','Projeção'], answer:2},
+      {q: 'Grupo fictício que sabota e leva à destruição. Pulsão predominante:', choices:['Pulsão Sexual','Pulsão de Autoconservação','Pulsão de Vida (Eros)','Pulsão de Morte (Thanatos)','Pulsão de Conhecimento'], answer:3},
+      {q: 'Grupo que coopera, preserva vínculos e constrói. Pulsão predominante:', choices:['Pulsão de Agressividade','Pulsão de Morte','Pulsão de Poder','Pulsão de Vida (Eros)','Pulsão Social'], answer:3},
+      {q: 'Fernando redireciona agressividade para o boxe — que mecanismo de defesa é esse?', choices:['Recalque','Deslocamento','Negação','Racionalização','Sublimação'], answer:4},
+      {q: 'Ana Maria projeta nos outros sua própria vaidade. Qual mecanismo é esse?', choices:['Formação reativa','Projeção','Negação','Identificação','Regressão'], answer:1},
+      {q: 'A personalidade é combinação de quais fatores (alternativas):', choices:['Genéticos, egoicos, emocionais e inatos','Socioculturais, sexuais, libidinais e psicológicos','Genéticos, socioculturais, psicológicos e inatos','Psicológicos, socioculturais, edipianos e emocionais','Inatos, sexuais, genéticos e socioculturais'], answer:2},
+      {q: 'Filho depositário em famílias narcisistas — afirmações I, II, III: qual opção está correta?', choices:['I e II, apenas','I e III, apenas','I, II e III','II e III, apenas','III, apenas'], answer:2},
+      {q: 'Sobre pulsões — I Thanatos morte; II Thanatos vida; III Eros vida; IV novelas com personagens representando Eros e Thanatos. Correto:', choices:['I e II, apenas','I e III, apenas','II e IV, apenas','I, II e III, apenas','I, III e IV'], answer:4},
+      {q: 'Dinâmica dos narcisistas em relacionamentos amorosos: Valorização, desvalorização e abandono corresponde a:', choices:['I, apenas','I e II, apenas','II e III, apenas','I e III, apenas','II, apenas'], answer:0},
+      {q: 'Referente ao tratamento dos pais narcisistas — alternativa INCORRETA:', choices:['Colocam um filho contra o outro','Acusam os filhos de não entenderem os pais','Os filhos não podem ter vontade própria','Os filhos não são manipulados','Há desvalorização e humilhação dos filhos'], answer:3},
+      {q: 'Afirmações sobre personalidade — I: podem existir duas personalidades iguais; II: combinação de fatores genéticos, psicológicos, inatos e sociais; III: classificação em fraca/forte. Correto:', choices:['II, apenas','I e II, apenas','II e III, apenas','I e III, apenas','I, II e III'], answer:0},
+      // --- 9 novas questões para completar 30 ---
+      {q: 'Qual instância psíquica, segundo Freud, atua como mediadora entre o id e a realidade?', choices:['Id','Ego','Superego','Pré-consciente','Inconsciente'], answer:1},
+      {q: 'Qual mecanismo de defesa envolve transformar um impulso inaceitável em seu oposto (ex.: uma pessoa muito hostil que age com excesso de amizade)?', choices:['Projeção','Formação reativa','Racionalização','Sublimação','Negação'], answer:1},
+      {q: 'Na teoria freudiana, o inconsciente é composto por:', choices:['Conteúdos lembrados conscientemente','Desejos, memórias e impulsos reprimidos','Somente lembranças da infância','Tipo de personalidade fixa','Apenas conteúdos sexuais'], answer:1},
+      {q: 'Quando um indivíduo recusa aceitar uma realidade dolorosa ("isso não está acontecendo"), qual é o mecanismo?', choices:['Negação','Racionalização','Sublimação','Deslocamento','Identificação'], answer:0},
+      {q: 'Qual fase psicossexual está mais associada ao controle dos esfíncteres e à ordem/organização?', choices:['Fase oral','Fase anal','Fase fálica','Fase da latência','Fase genital'], answer:1},
+      {q: 'O que é o superego na teoria estrutural freudiana?', choices:['Fonte dos impulsos primitivos','Mediador com a realidade','Instância moral que internaliza regras e normas','Sinônimo de inconsciente','Apenas consciência moral adulta'], answer:2},
+      {q: 'Qual técnica é central na prática analítica clássica (psicanálise) para acessar material inconsciente?', choices:['Exposição direta','Terapia comportamental','Associação livre','Suporte nutricional','Treino de habilidades'], answer:2},
+      {q: 'A expressão "libido" em Freud refere-se principalmente a:', choices:['Energia psíquica ligada aos instintos de vida','Desejo por poder','Capacidade cognitiva','Estado de humor','Agressividade pura'], answer:0},
+      {q: 'Quando um sujeito desloca sentimentos de raiva de uma pessoa para um objeto menos ameaçador, isso é:', choices:['Sublimação','Recalque','Deslocamento','Projeção','Negação'], answer:2}
+    ];
+
+    // Renderiza as perguntas
+    const root = document.getElementById('questionsRoot');
+
+    function renderQuestions(list){
+      root.innerHTML = '';
+      list.forEach((item, idx) =>{
+        const qDiv = document.createElement('div');
+        qDiv.className = 'question';
+        qDiv.innerHTML = `
+          <div class="q-title">${idx+1}. ${item.q}</div>
+          <div class="choices" data-qindex="${idx}">
+            ${item.choices.map((c,i)=>`<label class="choice"><input type="radio" name="q${idx}" value="${i}"> ${String.fromCharCode(97+i)}) ${c}</label>`).join('')}
+          </div>
+        `;
+        root.appendChild(qDiv);
+      });
+    }
+
+    // Inicial
+    renderQuestions(questions);
+
+    // Shuffle
+    function shuffleArray(a){
+      for(let i=a.length-1;i>0;i--){
+        const j=Math.floor(Math.random()*(i+1));
+        [a[i],a[j]]=[a[j],a[i]];
+      }
+      return a;
+    }
+
+    document.getElementById('shuffleBtn').addEventListener('click', ()=>{
+      shuffleArray(questions);
+      renderQuestions(questions);
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', ()=>{
+      document.getElementById('quizForm').reset();
+    });
+
+    document.getElementById('quizForm').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const form = e.target;
+      let score = 0;
+      const total = questions.length;
+      const review = [];
+
+      questions.forEach((q, i)=>{
+        const el = form.querySelector(`input[name=q${i}]:checked`);
+        const chosen = el ? Number(el.value) : null;
+        const correct = q.answer;
+        const ok = chosen === correct;
+        if(ok) score++;
+        review.push({index:i, q:q.q, chosen, correct, choices:q.choices});
+      });
+
+      // Mostrar resultado
+      const pct = Math.round((score/total)*100);
+      const resultArea = document.getElementById('resultArea');
+      resultArea.style.display = 'block';
+      resultArea.innerHTML = `
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+          <div>
+            <div class="score">Pontuação: ${score} / ${total} (${pct}%)</div>
+            <div class="small" style="margin-top:6px">Clique em qualquer pergunta abaixo para ver a resposta correta destacada.</div>
+          </div>
+          <div>
+            <button id="retryBtn" class="ghost">Refazer (limpar)</button>
+            <button id="reviewBtn">Mostrar gabarito</button>
+          </div>
+        </div>
+        <div id="reviewList" style="margin-top:12px"></div>
+      `;
+
+      document.getElementById('retryBtn').addEventListener('click', ()=>{document.getElementById('quizForm').reset(); resultArea.style.display='none'; window.scrollTo({top:0,behavior:'smooth'})});
+
+      document.getElementById('reviewBtn').addEventListener('click', ()=>{
+        const list = document.getElementById('reviewList');
+        list.innerHTML = review.map(r=>{
+          const chosenText = r.chosen===null? '<em>Não respondeu</em>' : `${String.fromCharCode(97+r.chosen)}) ${r.choices[r.chosen]}`;
+          const correctText = `${String.fromCharCode(97+r.correct)}) ${r.choices[r.correct]}`;
+          const ok = r.chosen===r.correct;
+          return `<div style="padding:10px;border-radius:8px;margin-bottom:8px;background:rgba(255,255,255,0.02)">
+            <div style="font-weight:600">${r.index+1}. ${r.q}</div>
+            <div class="small" style="margin-top:6px">Sua resposta: <span class="${ok? 'correct':'wrong'}">${chosenText}</span></div>
+            <div class="small" style="margin-top:4px">Resposta certa: <span class="correct">${correctText}</span></div>
+          </div>`;
+        }).join('');
+        window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'});
+      });
+
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  </script>
+<script>
+// override results display
+function showResults() {
+  let output = '';
+  quizData.forEach((q, i) => {
+    const selected = document.querySelector(`input[name="q${i}"]:checked`);
+    const isCorrect = selected && selected.value === q.answer;
+    output += `<p class="${isCorrect ? 'correct' : 'incorrect'}">Questão ${i+1}: ${isCorrect ? 'Correta' : 'Errada'}<br>Resposta correta: ${q.answer}</p>`;
+  });
+  document.getElementById('results').innerHTML = output;
+}
+</script>
+</body>
+</html>
