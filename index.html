@@ -1,567 +1,461 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Simulado — Psicologia do Esporte (TEA 1)</title>
-  <style>
-    :root{
-      --bg:#f3f7fb;
-      --card:#ffffff;
-      --accent:#2b6cb0; /* azul pedido */
-      --accent-600:#235a91;
-      --muted:#6b7280;
-      --success:#067c12;
-      --danger:#b32828;
-      --radius:12px;
-      --gap:14px;
-      font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
-    }
-    html,body{height:100%}
-    body{
-      margin:0;
-      background:linear-gradient(180deg, var(--bg), #eef4fb 120px);
-      padding:28px;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-    }
-    .wrap{
-      max-width:980px;
-      margin:0 auto;
-    }
-    header{
-      display:flex;
-      align-items:center;
-      gap:16px;
-      margin-bottom:18px;
-    }
-    .brand{
-      background:var(--card);
-      border-radius:12px;
-      padding:8px 12px;
-      box-shadow:0 6px 18px rgba(43,108,176,0.12);
-      display:flex;
-      align-items:center;
-      gap:12px;
-    }
-    .logo{
-      width:46px; height:46px;
-      border-radius:10px;
-      background:linear-gradient(180deg,var(--accent),var(--accent-600));
-      display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:20px;
-      box-shadow:0 6px 18px rgba(43,108,176,0.18);
-    }
-    h1{margin:0;font-size:20px;color:#0f1724}
-    p.lead{margin:6px 0 0;color:var(--muted);font-size:14px}
-
-    .card{
-      background:var(--card);
-      border-radius:var(--radius);
-      padding:20px;
-      box-shadow:0 8px 24px rgba(16,24,40,0.06);
-      margin-bottom:16px;
+<meta charset="UTF-8" />
+<title>Simulado Psicologia do Esporte – TEA 1</title>
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f4f8ff;
+        margin: 0;
+        padding: 20px;
+        color: #333;
     }
 
-    .instructions{
-      line-height:1.5;
-      color:#0b1220;
-      margin-bottom:12px;
-    }
-    .meta{
-      color:var(--muted);
-      font-size:13px;
-      margin-top:8px;
+    h1, h2 {
+        text-align: center;
+        color: #0a57d8;
     }
 
-    form#quizForm .q{
-      border-radius:10px;
-      padding:14px;
-      margin-bottom:12px;
-      background:linear-gradient(180deg,#fbfdff,#f7fbff);
-      border:1px solid rgba(43,108,176,0.06);
+    .descricao {
+        max-width: 900px;
+        margin: 0 auto 30px auto;
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.08);
     }
-    .q strong{display:block;margin-bottom:8px;color:#0b1220}
-    .q p{margin:6px 0;color:#0f1724}
-    .options{margin-top:8px}
-    .option{
-      display:block;
-      padding:9px 10px;
-      margin-bottom:8px;
-      border-radius:8px;
-      cursor:pointer;
-      border:1px solid rgba(15,23,36,0.04);
-      background:#fff;
-      transition:all .14s ease;
+
+    .questao {
+        background: white;
+        padding: 20px;
+        margin: 20px auto;
+        max-width: 900px;
+        border-radius: 14px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
-    .option input{margin-right:10px}
-    .option:hover{transform:translateY(-3px); box-shadow:0 6px 18px rgba(43,108,176,0.06)}
-    .controls{display:flex;gap:10px;margin-top:8px}
-    button.primary{
-      background:var(--accent);
-      color:#fff;
-      border:none;
-      padding:10px 16px;
-      border-radius:8px;
-      cursor:pointer;
-      font-size:15px;
-      box-shadow:0 8px 20px rgba(43,108,176,0.14);
+
+    .alternativas {
+        margin-top: 12px;
+        line-height: 2;
     }
-    button.ghost{
-      background:transparent;
-      border:1px solid rgba(15,23,36,0.06);
-      color:#0b1220;
-      padding:10px 14px;
-      border-radius:8px;
-      cursor:pointer;
-      font-size:15px;
+
+    button {
+        margin-top: 15px;
+        padding: 10px 22px;
+        background: #0a57d8;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 15px;
     }
-    button:disabled{opacity:.6; cursor:not-allowed}
 
-    #resultArea{margin-top:16px}
-    .resultBox{
-      padding:14px;
-      border-radius:10px;
-      background:linear-gradient(180deg,#f7fff7,#f0fff4);
-      border:1px solid rgba(6,124,18,0.08);
+    button:hover {
+        background: #0847ad;
     }
-    .wrong{background:#fff7f7;border:1px solid rgba(179,40,40,0.08);padding:10px;border-radius:8px;margin-top:10px}
-    .correct{color:var(--success);font-weight:700}
-    .small{color:var(--muted);font-size:13px;margin-top:6px}
 
-    .answer-key{display:none;margin-top:12px;padding:14px;border-radius:8px;background:#fff;border:1px solid rgba(15,23,36,0.04)}
-    .key-list{columns:2; column-gap:24px; font-size:14px}
-    .justify{display:flex;gap:10px;align-items:center;justify-content:space-between}
-    @media (max-width:640px){
-      .key-list{columns:1}
+    #resultadoFinal {
+        margin: 40px auto;
+        max-width: 900px;
+        background: #e9f3ff;
+        padding: 20px;
+        border-radius: 10px;
+        font-size: 18px;
+        display: none;
+        color: #003d7a;
+        border-left: 5px solid #0a57d8;
     }
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <header class="brand">
-      <div class="logo">TEA</div>
-      <div>
-        <h1>Simulado — Psicologia do Esporte (TEA 1)</h1>
-        <p class="lead">20 questões | Responda e clique em <strong>Enviar</strong> para ver o gabarito</p>
-      </div>
-    </header>
+</style>
 
-    <section class="card">
-      <div class="instructions">
-        <strong>Descritivo da atividade (TEA 1)</strong>
-        <p>Este simulado cobre conceitos fundamentais de Psicologia do Esporte e do Exercício: história da área, motivação, ativação e ansiedade, autoconfiança, competição/cooperação, comunicação, agressividade, feedback e reforço. Leia cada questão com atenção, marque uma alternativa por questão e envie ao final. O gabarito será exibido somente após a submissão.</p>
-        <p class="meta">Dica: responda sem consultar materiais para testar seu conhecimento; depois revise as explicações do gabarito.</p>
-      </div>
-    </section>
-
-    <form id="quizForm" class="card" autocomplete="off">
-
-      <!-- Q1 -->
-      <div class="q" id="q1">
-        <strong>1. </strong>
-        <p>Os primeiros passos da Psicologia do Esporte ocorreram na América do Norte, em 1895, com a pesquisa realizada por:</p>
-        <div class="options">
-          <label class="option"><input type="radio" name="q1" value="A">A) Norman Triplett</label>
-          <label class="option"><input type="radio" name="q1" value="B">B) João Carvalhaes</label>
-          <label class="option"><input type="radio" name="q1" value="C">C) George Wells Fitz</label>
-          <label class="option"><input type="radio" name="q1" value="D">D) Edward Wheeler Scripture</label>
-          <label class="option"><input type="radio" name="q1" value="E">E) Coleman Griffith</label>
-        </div>
-      </div>
-
-      <!-- Q2 -->
-      <div class="q" id="q2">
-        <strong>2. </strong>
-        <p>O psicólogo do esporte que fundou o primeiro laboratório de pesquisas na University of Illinois foi:</p>
-        <div class="options">
-          <label class="option"><input type="radio" name="q2" value="A">A) Coleman Griffith</label>
-          <label class="option"><input type="radio" name="q2" value="B">B) Norman Triplett</label>
-          <label class="option"><input type="radio" name="q2" value="C">C) João Carvalhaes</label>
-          <label class="option"><input type="radio" name="q2" value="D">D) George Wells Fitz</label>
-          <label class="option"><input type="radio" name="q2" value="E">E) Edward Wheeler Scripture</label>
-        </div>
-      </div>
-
-      <!-- Q3 -->
-      <div class="q" id="q3">
-        <strong>3. </strong>
-        <p>George Wells Fitz afirmou:</p>
-        <ol>
-          <li>A prática esportiva (jogar) é um meio de preparar para a vida.</li>
-          <li>Promove a capacidade de julgamento.</li>
-          <li>Habilita a percepção correta das condições.</li>
-        </ol>
-        <div class="options">
-          <label class="option"><input type="radio" name="q3" value="A">A) V, V, V</label>
-          <label class="option"><input type="radio" name="q3" value="B">B) F, F, F</label>
-          <label class="option"><input type="radio" name="q3" value="C">C) V, F, V</label>
-          <label class="option"><input type="radio" name="q3" value="D">D) F, V, F</label>
-          <label class="option"><input type="radio" name="q3" value="E">E) V, V, F</label>
-        </div>
-      </div>
-
-      <!-- Q4 -->
-      <div class="q" id="q4">
-        <strong>4. </strong>
-        <p>Norman Triplett, em seus estudos sobre ciclistas, defendia:</p>
-        <ol>
-          <li>Que a presença de um competidor serve de estímulo para liberar energia latente.</li>
-          <li>Que a presença do adversário funciona como motivador do aumento do esforço.</li>
-          <li>Que a prática esportiva favorece traços de personalidade específicos.</li>
-        </ol>
-        <div class="options">
-          <label class="option"><input type="radio" name="q4" value="A">A) V, V, F</label>
-          <label class="option"><input type="radio" name="q4" value="B">B) V, V, V</label>
-          <label class="option"><input type="radio" name="q4" value="C">C) F, F, F</label>
-          <label class="option"><input type="radio" name="q4" value="D">D) V, F, V</label>
-          <label class="option"><input type="radio" name="q4" value="E">E) F, V, F</label>
-        </div>
-      </div>
-
-      <!-- Q5 -->
-      <div class="q" id="q5">
-        <strong>5. </strong>
-        <p>O responsável por iniciar a Psicologia do Exercício e do Esporte no Brasil foi:</p>
-        <div class="options">
-          <label class="option"><input type="radio" name="q5" value="A">A) João Carvalhaes</label>
-          <label class="option"><input type="radio" name="q5" value="B">B) Athaide Ribeiro</label>
-          <label class="option"><input type="radio" name="q5" value="C">C) Bruce Ogilvie</label>
-          <label class="option"><input type="radio" name="q5" value="D">D) Dorothy Hazeltine Yates</label>
-          <label class="option"><input type="radio" name="q5" value="E">E) Edward Wheeler Scripture</label>
-        </div>
-      </div>
-
-      <!-- Q6 -->
-      <div class="q" id="q6">
-        <strong>6. </strong>
-        <p>Sobre a definição de Psicologia do Esporte e do Exercício, analise:</p>
-        <ol>
-          <li>Consiste no estudo do senso comum sobre pessoas e comportamentos em atividades esportivas e aplicação prática deste conhecimento.</li>
-          <li>É o estudo científico de pessoas e seus comportamentos em contextos esportivos e de exercício e sua aplicação prática.</li>
-          <li>Estuda técnicas psicológicas aplicáveis apenas a atletas que trabalham em grupo.</li>
-        </ol>
-        <div class="options">
-          <label class="option"><input type="radio" name="q6" value="A">A) F, V, F</label>
-          <label class="option"><input type="radio" name="q6" value="B">B) V, V, V</label>
-          <label class="option"><input type="radio" name="q6" value="C">C) F, F, F</label>
-          <label class="option"><input type="radio" name="q6" value="D">D) V, F, V</label>
-          <label class="option"><input type="radio" name="q6" value="E">E) V, V, F</label>
-        </div>
-      </div>
-
-      <!-- Q7 -->
-      <div class="q" id="q7">
-        <strong>7. </strong>
-        <p>Na década de 80 houve uma transição do enfoque comportamental para uma concepção cognitiva. Tornaram-se claras duas áreas principais da Psicologia do Esporte:</p>
-        <div class="options">
-          <label class="option"><input type="radio" name="q7" value="A">A) Educacional e Clínica</label>
-          <label class="option"><input type="radio" name="q7" value="B">B) Jurídica e Organizacional</label>
-          <label class="option"><input type="radio" name="q7" value="C">C) Forense e Educacional</label>
-          <label class="option"><input type="radio" name="q7" value="D">D) Clínica e Psiquiatria</label>
-          <label class="option"><input type="radio" name="q7" value="E">E) Organizacional e Psicodiagnóstico</label>
-        </div>
-      </div>
-
-      <!-- Q8 -->
-      <div class="q" id="q8">
-        <strong>8. </strong>
-        <p>Segundo Hollander e Martens, o núcleo psicológico corresponde a:</p>
-        <ol>
-          <li>O componente mais profundo, incluindo atitudes, valores, interesses e motivações.</li>
-          <li>Crenças sobre si mesmo e autovalorização.</li>
-          <li>Representa a forma como cada um aprende a ajustar-se ao ambiente.</li>
-        </ol>
-        <div class="options">
-          <label class="option"><input type="radio" name="q8" value="A">A) V, V, F</label>
-          <label class="option"><input type="radio" name="q8" value="B">B) F, V, F</label>
-          <label class="option"><input type="radio" name="q8" value="C">C) V, V, V</label>
-          <label class="option"><input type="radio" name="q8" value="D">D) F, F, F</label>
-          <label class="option"><input type="radio" name="q8" value="E">E) V, F, V</label>
-        </div>
-      </div>
-
-      <!-- Q9 -->
-      <div class="q" id="q9">
-        <strong>9. </strong>
-        <p>Psicólogos do esporte consideram várias formas de motivação. Marque a opção que contém as categorias corretas:</p>
-        <div class="options">
-          <label class="option"><input type="radio" name="q9" value="A">A) Apenas I e II</label>
-          <label class="option"><input type="radio" name="q9" value="B">B) Apenas III e IV</label>
-          <label class="option"><input type="radio" name="q9" value="C">C) Apenas I e IV</label>
-          <label class="option"><input type="radio" name="q9" value="D">D) Apenas II e III</label>
-          <label class="option"><input type="radio" name="q9" value="E">E) II, III e IV</label>
-        </div>
-      </div>
-
-      <!-- Q10 -->
-      <div class="q" id="q10">
-        <strong>10. </strong>
-        <p>Existem duas motivações relacionadas que influenciam diretamente o desempenho e a participação no esporte. Quais são elas?</p>
-        <div class="options">
-          <label class="option"><input type="radio" name="q10" value="A">A) Motivação para a realização / Motivação para competitividade</label>
-          <label class="option"><input type="radio" name="q10" value="B">B) Motivação intrínseca / Motivação extrínseca</label>
-          <label class="option"><input type="radio" name="q10" value="C">C) Motivação para competição / Motivação para recreação</label>
-          <label class="option"><input type="radio" name="q10" value="D">D) Motivação pessoal / Motivação situacional</label>
-          <label class="option"><input type="radio" name="q10" value="E">E) Motivação interacionista / Motivação do traço</label>
-        </div>
-      </div>
-
-      <!-- Q11 -->
-      <div class="q" id="q11">
-        <strong>11. </strong>
-        <p>Ativação (no contexto esportivo) é melhor definida como:</p>
-        <div class="options">
-          <label class="option"><input type="radio" name="q11" value="A">A) Combinação de atividades fisiológicas e psicológicas que refletem intensidade da motivação no momento.</label>
-          <label class="option"><input type="radio" name="q11" value="B">B) Um estado emocional negativo caracterizado por nervosismo e apreensão.</label>
-          <label class="option"><input type="radio" name="q11" value="C">C) Estado psicológico desagradável em reação ao estresse de desempenho.</label>
-          <label class="option"><input type="radio" name="q11" value="D">D) Um componente de humor em constante variação.</label>
-          <label class="option"><input type="radio" name="q11" value="E">E) Não é mudança física, é apenas percepção da mudança.</label>
-        </div>
-      </div>
-
-      <!-- Q12 -->
-      <div class="q" id="q12">
-        <strong>12. </strong>
-        <p>Segundo McGrath (1970), o estresse envolve estágios tais como Demanda ambiental, Percepção da demanda, Resposta de estresse e Consequências. Marque a alternativa correta:</p>
-        <div class="options">
-          <label class="option"><input type="radio" name="q12" value="A">A) Apenas I e II</label>
-          <label class="option"><input type="radio" name="q12" value="B">B) Apenas III e IV</label>
-          <label class="option"><input type="radio" name="q12" value="C">C) Apenas IV e V</label>
-          <label class="option"><input type="radio" name="q12" value="D">D) Apenas I e V</label>
-          <label class="option"><input type="radio" name="q12" value="E">E) II, III, IV e V</label>
-        </div>
-      </div>
-
-      <!-- Q13 -->
-      <div class="q" id="q13">
-        <strong>13. </strong>
-        <p>Sobre a definição de competição, selecione a combinação correta (V = Verdadeiro, F = Falso):</p>
-        <ol>
-          <li>Competição é um processo social que dá recompensas segundo desempenho comparado.</li>
-          <li>Competição é um processo que recompensa a realização coletiva do grupo.</li>
-          <li>Competição é caracterizada pelo envolvimento mútuo de mais de um participante.</li>
-        </ol>
-        <div class="options">
-          <label class="option"><input type="radio" name="q13" value="A">A) V, F, F</label>
-          <label class="option"><input type="radio" name="q13" value="B">B) V, V, F</label>
-          <label class="option"><input type="radio" name="q13" value="C">C) F, V, F</label>
-          <label class="option"><input type="radio" name="q13" value="D">D) V, V, V</label>
-          <label class="option"><input type="radio" name="q13" value="E">E) F, F, F</label>
-        </div>
-      </div>
-
-      <!-- Q14 -->
-      <div class="q" id="q14">
-        <strong>14. </strong>
-        <p>Para criar um ambiente que promova prazer, crescimento e domínio, os profissionais usam os princípios do reforço. Qual opção descreve corretamente esses princípios básicos?</p>
-        <div class="options">
-          <label class="option"><input type="radio" name="q14" value="A">A) Consequência boa / consequência desagradável</label>
-          <label class="option"><input type="radio" name="q14" value="B">B) Feedback / motivação</label>
-          <label class="option"><input type="radio" name="q14" value="C">C) Stress / competição</label>
-          <label class="option"><input type="radio" name="q14" value="D">D) Cooperação / iniciativa</label>
-          <label class="option"><input type="radio" name="q14" value="E">E) Personalidade / motivação extrínseca</label>
-        </div>
-      </div>
-
-      <!-- Q15 -->
-      <div class="q" id="q15">
-        <strong>15. </strong>
-        <p>Sobre o conceito de <em>grupo</em> (no contexto esportivo), assinale se as afirmações são verdadeiras:</p>
-        <ol>
-          <li>São duas ou mais pessoas que interagem e exercem influência mútua.</li>
-          <li>Um senso de interdependência por um fim comum diferencia grupo de mera reunião.</li>
-          <li>Podem ter alguns objetivos comuns.</li>
-        </ol>
-        <div class="options">
-          <label class="option"><input type="radio" name="q15" value="A">A) V, V, V</label>
-          <label class="option"><input type="radio" name="q15" value="B">B) V, F, F</label>
-          <label class="option"><input type="radio" name="q15" value="C">C) V, V, F</label>
-          <label class="option"><input type="radio" name="q15" value="D">D) F, V, F</label>
-          <label class="option"><input type="radio" name="q15" value="E">E) F, F, F</label>
-        </div>
-      </div>
-
-      <!-- Q16 -->
-      <div class="q" id="q16">
-        <strong>16. </strong>
-        <p>Sobre feedback: (1) deve ser sincero e condicionado a um comportamento; (2) deve ser específico; (3) saber dar feedback construtivo é essencial. Marque a combinação correta:</p>
-        <div class="options">
-          <label class="option"><input type="radio" name="q16" value="A">A) V, V, V</label>
-          <label class="option"><input type="radio" name="q16" value="B">B) V, F, F</label>
-          <label class="option"><input type="radio" name="q16" value="C">C) V, V, F</label>
-          <label class="option"><input type="radio" name="q16" value="D">D) F, V, F</label>
-          <label class="option"><input type="radio" name="q16" value="E">E) F, F, F</label>
-        </div>
-      </div>
-
-      <!-- Q17 -->
-      <div class="q" id="q17">
-        <strong>17. </strong>
-        <p>Sobre liderança transformacional (Chelladurai):</p>
-        <ol>
-          <li>O líder assume uma posição visionária e inspira a equipe a seguir essa visão.</li>
-          <li>Capacidade de motivar e inspirar seguidores a alcançarem níveis superiores de desempenho.</li>
-          <li>Em muitas situações, o sistema organizacional dita o comportamento e espera conformidade.</li>
-        </ol>
-        <div class="options">
-          <label class="option"><input type="radio" name="q17" value="A">A) V, V, V</label>
-          <label class="option"><input type="radio" name="q17" value="B">B) V, V, F</label>
-          <label class="option"><input type="radio" name="q17" value="C">C) V, F, F</label>
-          <label class="option"><input type="radio" name="q17" value="D">D) F, V, F</label>
-          <label class="option"><input type="radio" name="q17" value="E">E) F, F, F</label>
-        </div>
-      </div>
-
-      <!-- Q18 -->
-      <div class="q" id="q18">
-        <strong>18. </strong>
-        <p>Sobre comunicação não verbal:</p>
-        <ol>
-          <li>Os indícios não verbais entre pontos não eram suficientemente fortes para comunicar quem estava vencendo ou perdendo.</li>
-          <li>É comum que as pessoas não tenham consciência dos indícios não verbais que usam.</li>
-          <li>Técnicos, atletas e instrutores devem ser observadores desses indícios.</li>
-        </ol>
-        <div class="options">
-          <label class="option"><input type="radio" name="q18" value="A">A) V, V, F</label>
-          <label class="option"><input type="radio" name="q18" value="B">B) V, V, V</label>
-          <label class="option"><input type="radio" name="q18" value="C">C) V, F, F</label>
-          <label class="option"><input type="radio" name="q18" value="D">D) F, V, V</label>
-          <label class="option"><input type="radio" name="q18" value="E">E) F, F, F</label>
-        </div>
-      </div>
-
-      <!-- Q19 -->
-      <div class="q" id="q19">
-        <strong>19. </strong>
-        <p>Assinale a alternativa <strong>INCORRETA</strong> sobre motivação e autoconfiança:</p>
-        <div class="options">
-          <label class="option"><input type="radio" name="q19" value="A">A) Duvidar de si mesmo ajuda o desempenho, pois melhora a concentração.</label>
-          <label class="option"><input type="radio" name="q19" value="B">B) Originalmente a autoconfiança foi considerada tanto disposição quanto estado/traço.</label>
-          <label class="option"><input type="radio" name="q19" value="C">C) Expectativas negativas podem tornar-se profecias autorrealizáveis.</label>
-          <label class="option"><input type="radio" name="q19" value="D">D) A autoconfiança influencia afeto, comportamento e cognições.</label>
-          <label class="option"><input type="radio" name="q19" value="E">E) Pessoas excessivamente confiantes são, muitas vezes, falsamente confiantes.</label>
-        </div>
-      </div>
-
-      <!-- Q20 -->
-      <div class="q" id="q20">
-        <strong>20. </strong>
-        <p>Sobre agressividade no esporte:</p>
-        <ol>
-          <li>Existe agressividade "boa" (ex.: disputar uma bola) e "má" (ex.: agredir intencionalmente).</li>
-          <li>A agressividade é comportamento físico ou verbal, não atitude ou emoção.</li>
-          <li>Uma estratégia para reduzir agressividade é estabelecer normas adequadas apenas pelo técnico, pois ele é o único responsável.</li>
-        </ol>
-        <div class="options">
-          <label class="option"><input type="radio" name="q20" value="A">A) V, V, F</label>
-          <label class="option"><input type="radio" name="q20" value="B">B) F, V, V</label>
-          <label class="option"><input type="radio" name="q20" value="C">C) V, F, F</label>
-          <label class="option"><input type="radio" name="q20" value="D">D) F, V, F</label>
-          <label class="option"><input type="radio" name="q20" value="E">E) F, F, F</label>
-        </div>
-      </div>
-
-      <div class="justify">
-        <div class="small">Revise suas respostas antes de enviar. Questões sem resposta contam como erradas.</div>
-        <div class="controls">
-          <button type="button" id="submitBtn" class="primary">Enviar</button>
-          <button type="button" id="resetBtn" class="ghost">Limpar</button>
-        </div>
-      </div>
-    </form>
-
-    <div id="resultArea"></div>
-
-    <div id="answerKey" class="answer-key">
-      <div style="display:flex;justify-content:space-between;align-items:center">
-        <strong>Gabarito</strong>
-        <small class="small">Exibido após envio</small>
-      </div>
-      <div class="key-list" id="keyList">
-        <!-- Filled by script -->
-      </div>
-    </div>
-
-  </div>
-
-  <script>
-    // Gabarito revisado
-    const answers = {
-      q1:'A', q2:'A', q3:'A', q4:'A', q5:'A', q6:'A', q7:'A', q8:'A', q9:'E',
-      q10:'A', q11:'A', q12:'E', q13:'A', q14:'A', q15:'A', q16:'A', q17:'B',
-      q18:'D', q19:'A', q20:'A'
+<script>
+    const gabarito = {
+        1: "A",
+        2: "A",
+        3: "A",
+        4: "A",
+        5: "A",
+        6: "A",
+        7: "A",
+        8: "A",
+        9: "E",
+        10: "A",
+        11: "A",
+        12: "E",
+        13: "A",
+        14: "A",
+        15: "A",
+        16: "B",
+        17: "D",
+        18: "A",
+        19: "A",
+        20: "A"
     };
 
-    const submitBtn = document.getElementById('submitBtn');
-    const resetBtn = document.getElementById('resetBtn');
-    const resultArea = document.getElementById('resultArea');
-    const answerKey = document.getElementById('answerKey');
-    const keyList = document.getElementById('keyList');
+    function corrigir() {
+        let acertos = 0;
+        let erros = [];
 
-    function buildKey() {
-      // Build gabarito display
-      const lines = [];
-      for (let i=1;i<=20;i++){
-        lines.push(i + ' — ' + answers['q'+i]);
-      }
-      // create two columns visually
-      keyList.innerHTML = lines.map(l => `<div>${l}</div>`).join('');
+        for (let i = 1; i <= 20; i++) {
+            const resposta = document.querySelector(`input[name=q${i}]:checked`);
+            if (resposta && resposta.value === gabarito[i]) {
+                acertos++;
+            } else {
+                erros.push(i);
+            }
+        }
+
+        const div = document.getElementById("resultadoFinal");
+        div.style.display = "block";
+        div.innerHTML = `
+            <strong>Resultado:</strong><br><br>
+            Acertos: ${acertos} / 20<br>
+            Erros: ${erros.length > 0 ? erros.join(", ") : "Nenhum 🎉"}<br><br>
+            <strong>Gabarito:</strong><br>
+            ${Object.entries(gabarito).map(([q, r]) => `Questão ${q}: ${r}`).join("<br>")}
+        `;
     }
+</script>
+</head>
 
-    submitBtn.addEventListener('click', function(){
-      const form = document.getElementById('quizForm');
-      let score = 0;
-      let total = 20;
-      let unanswered = [];
+<body>
 
-      let resultHTML = '';
+<h1>Simulado – Psicologia do Esporte (TEA 1)</h1>
 
-      for (let i=1;i<=total;i++){
-        const name = 'q'+i;
-        const inputs = form[name];
-        let userAns = null;
-        if (!inputs) { userAns = null; }
-        else {
-          // inputs is a nodeList
-          for (let el of inputs){
-            if (el.checked) { userAns = el.value; break; }
-          }
-        }
-        if (!userAns) unanswered.push(i);
-        if (userAns === answers[name]) {
-          score++;
-          resultHTML += `<p style="margin:6px 0"><strong>Questão ${i}:</strong> <span class="correct">Correta</span></p>`;
-        } else {
-          resultHTML += `<div class="wrong"><strong>Questão ${i}:</strong> Errada<br><small class="small">Sua resposta: ${userAns ?? '(sem resposta)'} — Correta: ${answers[name]}</small></div>`;
-        }
-      }
+<div class="descricao">
+    <h2>Descrição da Atividade</h2>
+    Este simulado contém 20 questões objetivas sobre Psicologia do Esporte.  
+    O objetivo é auxiliar no estudo para sua avaliação TEA 1, abordando temas como:
+    história da psicologia do esporte, personalidade, motivação, estresse, ansiedade,
+    liderança, comunicação e agressividade.
+</div>
 
-      if (unanswered.length > 0) {
-        const confirmSend = confirm("Você não respondeu todas as questões. Deseja enviar mesmo assim? Questões sem resposta serão consideradas erradas.");
-        if (!confirmSend) return;
-      }
+<!-- QUESTÕES -->
 
-      const percent = Math.round((score/total)*100);
-      resultArea.innerHTML = `<div class="resultBox"><h3>Resultado</h3>${resultHTML}<p style="margin-top:10px"><strong>Pontuação:</strong> ${score}/${total} — ${percent}%</p></div>`;
+<!-- 1 -->
+<div class="questao">
+<b>1) Os primeiros passos da Psicologia do Esporte ocorreram na América do Norte, em 1895, com a pesquisa realizada por:</b>
 
-      // show gabarito
-      buildKey();
-      answerKey.style.display = 'block';
+<div class="alternativas">
+<label><input type="radio" name="q1" value="A"> A) Norman Triplett</label><br>
+<label><input type="radio" name="q1" value="B"> B) João Carvalhaes</label><br>
+<label><input type="radio" name="q1" value="C"> C) George Wells Fitz</label><br>
+<label><input type="radio" name="q1" value="D"> D) Edward Wheeler Scripture</label><br>
+<label><input type="radio" name="q1" value="E"> E) Coleman Griffith</label>
+</div>
+</div>
 
-      // disable submit
-      submitBtn.disabled = true;
-    });
+<!-- 2 -->
+<div class="questao">
+<b>2) O psicólogo do esporte que fundou o primeiro laboratório de pesquisas da University of Illinois foi:</b>
 
-    resetBtn.addEventListener('click', function(){
-      document.getElementById('quizForm').reset();
-      resultArea.innerHTML = '';
-      answerKey.style.display = 'none';
-      submitBtn.disabled = false;
-      window.scrollTo({top:0,behavior:'smooth'});
-    });
+<div class="alternativas">
+<label><input type="radio" name="q2" value="A"> A) Coleman Griffith</label><br>
+<label><input type="radio" name="q2" value="B"> B) Norman Triplett</label><br>
+<label><input type="radio" name="q2" value="C"> C) João Carvalhaes</label><br>
+<label><input type="radio" name="q2" value="D"> D) George Wells Fitz</label><br>
+<label><input type="radio" name="q2" value="E"> E) Edward Wheeler Scripture</label>
+</div>
+</div>
 
-    // Build static key data (hidden until after submission)
-    buildKey();
-  </script>
+<!-- 3 -->
+<div class="questao">
+<b>3) George Wells Fitz afirmou:</b>
+<br><br>
+(1) A prática esportiva prepara para a vida. <br>
+(2) Promove a capacidade de julgamento. <br>
+(3) Habilita a percepção das condições corretamente. 
+<br><br>
+<b>Assinale de cima para baixo:</b>
+
+<div class="alternativas">
+<label><input type="radio" name="q3" value="A"> A) V, V, V</label><br>
+<label><input type="radio" name="q3" value="B"> B) F, F, F</label><br>
+<label><input type="radio" name="q3" value="C"> C) V, F, V</label><br>
+<label><input type="radio" name="q3" value="D"> D) F, V, F</label><br>
+<label><input type="radio" name="q3" value="E"> E) V, V, F</label>
+</div>
+</div>
+
+<!-- 4 -->
+<div class="questao">
+<b>4) Norman Triplett defendia:</b>
+<br><br>
+(1) A presença de competidor libera energia latente. <br>
+(2) A presença do adversário aumenta o esforço. <br>
+(3) Descrevia traços de personalidade ligados ao esporte.
+<br><br>
+
+<div class="alternativas">
+<label><input type="radio" name="q4" value="A"> A) V, V, F</label><br>
+<label><input type="radio" name="q4" value="B"> B) V, V, V</label><br>
+<label><input type="radio" name="q4" value="C"> C) F, F, F</label><br>
+<label><input type="radio" name="q4" value="D"> D) V, F, V</label><br>
+<label><input type="radio" name="q4" value="E"> E) F, V, F</label>
+</div>
+</div>
+
+<!-- 5 -->
+<div class="questao">
+<b>5) Início da Psicologia do Exercício e do Esporte no Brasil foi feito por:</b>
+
+<div class="alternativas">
+<label><input type="radio" name="q5" value="A"> A) João Carvalhaes</label><br>
+<label><input type="radio" name="q5" value="B"> B) Athaide Ribeiro</label><br>
+<label><input type="radio" name="q5" value="C"> C) Bruce Ogilvie</label><br>
+<label><input type="radio" name="q5" value="D"> D) Dorothy Hazeltine Yates</label><br>
+<label><input type="radio" name="q5" value="E"> E) Edward Wheeler Scripture</label>
+</div>
+</div>
+
+<!-- 6 -->
+<div class="questao">
+<b>6) Psicologia do Esporte é:</b>
+<br><br>
+(1) Estudo do senso comum das pessoas no esporte. <br>
+(2) Estudo científico de pessoas e comportamentos no esporte. <br>
+(3) Aplica-se apenas a atletas que trabalham em grupo. 
+<br><br>
+
+<div class="alternativas">
+<label><input type="radio" name="q6" value="A"> A) F, V, F</label><br>
+<label><input type="radio" name="q6" value="B"> B) V, V, V</label><br>
+<label><input type="radio" name="q6" value="C"> C) F, F, F</label><br>
+<label><input type="radio" name="q6" value="D"> D) V, F, V</label><br>
+<label><input type="radio" name="q6" value="E"> E) V, V, F</label>
+</div>
+</div>
+
+<!-- 7 -->
+<div class="questao">
+<b>7) Na década de 80, a psicologia do esporte passou a ser:</b>
+
+<div class="alternativas">
+<label><input type="radio" name="q7" value="A"> A) Educacional e Clínica</label><br>
+<label><input type="radio" name="q7" value="B"> B) Jurídica e Organizacional</label><br>
+<label><input type="radio" name="q7" value="C"> C) Forense e Educacional</label><br>
+<label><input type="radio" name="q7" value="D"> D) Clínica e Psiquiatria</label><br>
+<label><input type="radio" name="q7" value="E"> E) Organizacional e Psicodiagnóstico</label>
+</div>
+</div>
+
+<!-- 8 -->
+<div class="questao">
+<b>8) Núcleo psicológico da personalidade é:</b>
+<br><br>
+(1) Atitudes, valores, interesses e motivações <br>
+(2) Crenças sobre si mesmo e autoestima <br>
+(3) Modo de ajuste ao ambiente
+<br><br>
+
+<div class="alternativas">
+<label><input type="radio" name="q8" value="A"> A) V, V, F</label><br>
+<label><input type="radio" name="q8" value="B"> B) F, V, F</label><br>
+<label><input type="radio" name="q8" value="C"> C) V, V, V</label><br>
+<label><input type="radio" name="q8" value="D"> D) F, F, F</label><br>
+<label><input type="radio" name="q8" value="E"> E) V, F, V</label>
+</div>
+</div>
+
+<!-- 9 ATUALIZADA -->
+<div class="questao">
+<b>9) Psicólogos do esporte consideram vários tipos de motivação:</b>
+<br><br>
+I — Desmotivação <br>
+II — Motivação para realização <br>
+III — Motivação na forma de estresse competitivo <br>
+IV — Motivações intrínseca e extrínseca  
+<br><br>
+
+<div class="alternativas">
+<label><input type="radio" name="q9" value="A"> A) Apenas I e II</label><br>
+<label><input type="radio" name="q9" value="B"> B) Apenas III e IV</label><br>
+<label><input type="radio" name="q9" value="C"> C) Apenas I e IV</label><br>
+<label><input type="radio" name="q9" value="D"> D) Apenas II e III</label><br>
+<label><input type="radio" name="q9" value="E"> E) II, III e IV</label>
+</div>
+</div>
+
+<!-- 10 -->
+<div class="questao">
+<b>10) Existem duas motivações que influenciam o desempenho no esporte:</b>
+
+<div class="alternativas">
+<label><input type="radio" name="q10" value="A"> A) Motivação para realização / competitividade</label><br>
+<label><input type="radio" name="q10" value="B"> B) Motivação intrínseca / extrínseca</label><br>
+<label><input type="radio" name="q10" value="C"> C) Motivação para competição / recreação</label><br>
+<label><input type="radio" name="q10" value="D"> D) Motivação pessoal / situacional</label><br>
+<label><input type="radio" name="q10" value="E"> E) Motivação interacionista / traço</label>
+</div>
+</div>
+
+<!-- 11 -->
+<div class="questao">
+<b>11) Ativação é:</b>
+
+<div class="alternativas">
+<label><input type="radio" name="q11" value="A"> A) Combinação de atividades fisiológicas e psicológicas</label><br>
+<label><input type="radio" name="q11" value="B"> B) Estado emocional negativo com preocupação</label><br>
+<label><input type="radio" name="q11" value="C"> C) Estado desagradável diante do estresse</label><br>
+<label><input type="radio" name="q11" value="D"> D) Humor variável</label><br>
+<label><input type="radio" name="q11" value="E"> E) Percepção da mudança física</label>
+</div>
+</div>
+
+<!-- 12 ATUALIZADA -->
+<div class="questao">
+<b>12) O estresse consiste em estágios:</b>
+<br><br>
+II — Demanda ambiental <br>
+III — Percepção da demanda <br>
+IV — Resposta ao estresse <br>
+V — Consequências comportamentais  
+<br><br>
+
+<div class="alternativas">
+<label><input type="radio" name="q12" value="A"> A) Apenas I e II</label><br>
+<label><input type="radio" name="q12" value="B"> B) Apenas III e IV</label><br>
+<label><input type="radio" name="q12" value="C"> C) Apenas IV e V</label><br>
+<label><input type="radio" name="q12" value="D"> D) Apenas I e V</label><br>
+<label><input type="radio" name="q12" value="E"> E) II, III, IV e V</label>
+</div>
+</div>
+
+<!-- 13 -->
+<div class="questao">
+<b>13) Competição é:</b>
+<br><br>
+(1) Processo social baseado em comparação de desempenho <br>
+(2) Avaliação coletiva para atingir objetivo comum <br>
+(3) Envolvimento mútuo entre participantes <br><br>
+
+<div class="alternativas">
+<label><input type="radio" name="q13" value="A"> A) V, F, F</label><br>
+<label><input type="radio" name="q13" value="B"> B) V, V, F</label><br>
+<label><input type="radio" name="q13" value="C"> C) F, V, F</label><br>
+<label><input type="radio" name="q13" value="D"> D) V, V, V</label><br>
+<label><input type="radio" name="q13" value="E"> E) F, F, F</label>
+</div>
+</div>
+
+<!-- 14 -->
+<div class="questao">
+<b>14) Princípios de reforço na motivação:</b>
+
+<div class="alternativas">
+<label><input type="radio" name="q14" value="A"> A) Consequência boa / desagradável</label><br>
+<label><input type="radio" name="q14" value="B"> B) Feedback / motivação</label><br>
+<label><input type="radio" name="q14" value="C"> C) Stress / competição</label><br>
+<label><input type="radio" name="q14" value="D"> D) Cooperação / iniciativa</label><br>
+<label><input type="radio" name="q14" value="E"> E) Personalidade / motivação extrínseca</label>
+</div>
+</div>
+
+<!-- 15 -->
+<div class="questao">
+<b>15) Sobre grupo, é correto afirmar:</b>
+<br><br>
+(1) Duas ou mais pessoas que interagem entre si <br>
+(2) Interdependência e objetivo comum importam <br>
+(3) Podem ter alguns objetivos comuns <br><br>
+
+<div class="alternativas">
+<label><input type="radio" name="q15" value="A"> A) V, V, V</label><br>
+<label><input type="radio" name="q15" value="B"> B) V, F, F</label><br>
+<label><input type="radio" name="q15" value="C"> C) V, V, F</label><br>
+<label><input type="radio" name="q15" value="D"> D) F, V, F</label><br>
+<label><input type="radio" name="q15" value="E"> E) F, F, F</label>
+</div>
+</div>
+
+<!-- 16 -->
+<div class="questao">
+<b>16) Importância do feedback:</b>
+<br><br>
+(1) Ser sincero e baseado em comportamento <br>
+(2) Deve ser específico <br>
+(3) Essencial para crescimento da equipe <br><br>
+
+<div class="alternativas">
+<label><input type="radio" name="q16" value="A"> A) V, V, V</label><br>
+<label><input type="radio" name="q16" value="B"> B) V, F, F</label><br>
+<label><input type="radio" name="q16" value="C"> C) V, V, F</label><br>
+<label><input type="radio" name="q16" value="D"> D) F, V, F</label><br>
+<label><input type="radio" name="q16" value="E"> E) F, F, F</label>
+</div>
+</div>
+
+<!-- 17 -->
+<div class="questao">
+<b>17) Liderança transformacional:</b>
+<br><br>
+(1) Líder visionário que inspira a equipe <br>
+(2) Motiva seguidores a níveis superiores <br>
+(3) Normas organizacionais ditam comportamento <br><br>
+
+<div class="alternativas">
+<label><input type="radio" name="q17" value="A"> A) V, V, V</label><br>
+<label><input type="radio" name="q17" value="B"> B) V, V, F</label><br>
+<label><input type="radio" name="q17" value="C"> C) V, F, F</label><br>
+<label><input type="radio" name="q17" value="D"> D) F, V, F</label><br>
+<label><input type="radio" name="q17" value="E"> E) F, F, F</label>
+</div>
+</div>
+
+<!-- 18 -->
+<div class="questao">
+<b>18) Comunicação não verbal:</b>
+<br><br>
+
+(1) Indícios não verbais não indicavam vitória/derrota <br>
+(2) Pessoas não percebem seus sinais não verbais <br>
+(3) Técnicos e atletas devem ser observadores desses sinais <br><br>
+
+<div class="alternativas">
+<label><input type="radio" name="q18" value="A"> A) V, V, F</label><br>
+<label><input type="radio" name="q18" value="B"> B) V, V, V</label><br>
+<label><input type="radio" name="q18" value="C"> C) V, F, F</label><br>
+<label><input type="radio" name="q18" value="D"> D) F, V, V</label><br>
+<label><input type="radio" name="q18" value="E"> E) F, F, F</label>
+</div>
+</div>
+
+<!-- 19 -->
+<div class="questao">
+<b>19) Sobre motivação, assinale a INCORRETA:</b>
+
+<div class="alternativas">
+<label><input type="radio" name="q19" value="A"> A) Duvidar de si mesmo ajuda o desempenho</label><br>
+<label><input type="radio" name="q19" value="B"> B) Autoconfiança pode ser estado ou traço</label><br>
+<label><input type="radio" name="q19" value="C"> C) Profecia autorrealizável existe</label><br>
+<label><input type="radio" name="q19" value="D"> D) Autoconfiança aumenta expectativa de sucesso</label><br>
+<label><input type="radio" name="q19" value="E"> E) Confiança excessiva pode ser falsa</label>
+</div>
+</div>
+
+<!-- 20 -->
+<div class="questao">
+<b>20) Agressividade no esporte:</b>
+<br><br>
+(1) Pode ser boa ou má <br>
+(2) Agressividade é comportamento físico ou verbal <br>
+(3) Apenas o técnico influencia a agressividade <br><br>
+
+<div class="alternativas">
+<label><input type="radio" name="q20" value="A"> A) V, V, F</label><br>
+<label><input type="radio" name="q20" value="B"> B) F, V, V</label><br>
+<label><input type="radio" name="q20" value="C"> C) V, F, F</label><br>
+<label><input type="radio" name="q20" value="D"> D) F, V, F</label><br>
+<label><input type="radio" name="q20" value="E"> E) F, F, F</label>
+</div>
+</div>
+
+<h2>Finalizar Simulado</h2>
+<div style="text-align:center;">
+<button onclick="corrigir()">Corrigir Simulado</button>
+</div>
+
+<div id="resultadoFinal"></div>
+
 </body>
 </html>
