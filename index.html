@@ -443,152 +443,394 @@ Quero Receber
 
 </section>
 
+<section id="lead" style="position:relative;padding:140px 20px;background:linear-gradient(rgba(8,8,8,.92),rgba(8,8,8,.96)),url('g5.jpg') center/cover no-repeat;overflow:hidden;">
 
+<style>
 
+#lead *{
+    box-sizing:border-box;
+}
 
-<section id="lead">
+#lead::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:radial-gradient(circle at center,rgba(212,175,55,.08),transparent 70%);
+}
 
-<div class="container">
+#lead .wrapper{
+    position:relative;
+    z-index:2;
+    max-width:1200px;
+    margin:auto;
+}
 
-<div class="lead-box">
+#lead .card{
+
+    background:rgba(18,18,18,.92);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(212,175,55,.12);
+
+    border-radius:28px;
+
+    padding:70px;
+
+    display:grid;
+
+    grid-template-columns:1fr 420px;
+
+    gap:70px;
+
+    align-items:center;
+
+    box-shadow:
+    0 30px 70px rgba(0,0,0,.45);
+
+}
+
+#lead .tag{
+
+    display:inline-block;
+
+    padding:10px 18px;
+
+    border-radius:40px;
+
+    border:1px solid rgba(212,175,55,.20);
+
+    background:rgba(212,175,55,.08);
+
+    color:#D4AF37;
+
+    letter-spacing:2px;
+
+    font-size:13px;
+
+    margin-bottom:25px;
+
+}
+
+#lead h2{
+
+    font-family:'Playfair Display',serif;
+
+    font-size:54px;
+
+    color:#fff;
+
+    line-height:1.15;
+
+    margin-bottom:25px;
+
+}
+
+#lead p{
+
+    color:#BFBFBF;
+
+    line-height:1.9;
+
+    font-size:17px;
+
+    margin-bottom:40px;
+
+}
+
+#lead ul{
+
+    list-style:none;
+
+    padding:0;
+
+    margin:35px 0 0;
+
+}
+
+#lead ul li{
+
+    color:#D4AF37;
+
+    margin-bottom:14px;
+
+    font-size:15px;
+
+}
+
+#lead form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+}
+
+#lead input{
+
+    height:60px;
+
+    padding:0 20px;
+
+    border-radius:14px;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    background:#161616;
+
+    color:#fff;
+
+    font-size:16px;
+
+    transition:.35s;
+
+}
+
+#lead input:focus{
+
+    outline:none;
+
+    border-color:#D4AF37;
+
+    box-shadow:0 0 25px rgba(212,175,55,.20);
+
+}
+
+#lead button{
+
+    margin-top:10px;
+
+    height:60px;
+
+    border:none;
+
+    border-radius:50px;
+
+    cursor:pointer;
+
+    font-size:17px;
+
+    font-weight:700;
+
+    color:#000;
+
+    background:linear-gradient(90deg,#F1D47A,#B88A21);
+
+    transition:.35s;
+
+}
+
+#lead button:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:
+    0 20px 35px rgba(0,0,0,.35),
+    0 0 25px rgba(212,175,55,.35);
+
+}
+
+#lead .secure{
+
+    margin-top:18px;
+
+    color:#8F8F8F;
+
+    text-align:center;
+
+    font-size:13px;
+
+}
+
+#lead .ebook{
+
+    position:absolute;
+
+    right:-40px;
+
+    bottom:-40px;
+
+    width:260px;
+
+    opacity:.08;
+
+    pointer-events:none;
+
+}
+
+@media(max-width:980px){
+
+#lead .card{
+
+grid-template-columns:1fr;
+
+padding:45px;
+
+}
+
+#lead h2{
+
+font-size:38px;
+
+}
+
+#lead .ebook{
+
+display:none;
+
+}
+
+}
+
+@media(max-width:600px){
+
+#lead{
+
+padding:80px 20px;
+
+}
+
+#lead .card{
+
+padding:30px;
+
+}
+
+#lead h2{
+
+font-size:32px;
+
+}
+
+}
+
+</style>
+
+<div class="wrapper">
+
+<div class="card">
+
+<div>
+
+<span class="tag">
+
+PRINCÍPIOS • FÉ • PROSPERIDADE
+
+</span>
 
 <h2>
 
-Comece sua Jornada Hoje
+Transforme sua forma de viver a prosperidade.
 
 </h2>
-<!-- FORMULÁRIO PREMIUM -->
 
-<div style="max-width:650px;margin:auto;padding:50px;border-radius:24px;background:#121212;border:1px solid rgba(212,175,55,.15);box-shadow:0 25px 60px rgba(0,0,0,.45);">
+<p>
 
-    <p style="
-        color:#BDBDBD;
-        text-align:center;
-        margin-bottom:40px;
-        line-height:1.8;">
-        Preencha seus dados abaixo e receba acesso ao material.
-    </p>
+Receba gratuitamente o eBook <strong>Princípios Bíblicos para Prosperidade</strong> e descubra ensinamentos fundamentados nas Escrituras para desenvolver uma vida financeira, profissional e espiritual com mais propósito, sabedoria e equilíbrio.
 
-    <form id="leadForm" style="display:flex;flex-direction:column;gap:18px;">
+</p>
 
-        <input
-            id="nome"
-            type="text"
-            placeholder="Seu nome"
-            required
-            style="
-            padding:18px;
-            border-radius:14px;
-            border:1px solid #2b2b2b;
-            background:#181818;
-            color:#fff;
-            font-size:16px;
-            outline:none;">
+<ul>
 
-        <input
-            id="email"
-            type="email"
-            placeholder="Seu melhor e-mail"
-            required
-            style="
-            padding:18px;
-            border-radius:14px;
-            border:1px solid #2b2b2b;
-            background:#181818;
-            color:#fff;
-            font-size:16px;
-            outline:none;">
+<li>✓ Acesso imediato ao conteúdo</li>
 
-        <input
-            id="telefone"
-            type="tel"
-            placeholder="WhatsApp"
-            style="
-            padding:18px;
-            border-radius:14px;
-            border:1px solid #2b2b2b;
-            background:#181818;
-            color:#fff;
-            font-size:16px;
-            outline:none;">
+<li>✓ Material 100% digital</li>
 
-        <button
-            type="submit"
-            style="
-            margin-top:10px;
-            padding:18px;
-            border:none;
-            border-radius:50px;
-            background:linear-gradient(90deg,#E8C869,#B88A21);
-            color:#000;
-            font-size:18px;
-            font-weight:bold;
-            cursor:pointer;
-            transition:.3s;">
+<li>✓ Linguagem simples e prática</li>
 
-            📖 Quero Receber o Ebook
+<li>✓ Baseado em princípios bíblicos</li>
 
-        </button>
-
-    </form>
-
-    <p style="
-        color:#777;
-        text-align:center;
-        margin-top:25px;
-        font-size:13px;">
-
-        Seus dados estão protegidos. Não enviamos spam.
-
-    </p>
+</ul>
 
 </div>
 
+<div>
+
+<form id="leadForm">
+
+<input
+id="nome"
+type="text"
+placeholder="Seu nome"
+required>
+
+<input
+id="email"
+type="email"
+placeholder="Seu melhor e-mail"
+required>
+
+<input
+id="telefone"
+type="tel"
+placeholder="WhatsApp">
+
+<button type="submit">
+
+📖 QUERO RECEBER O EBOOK
+
+</button>
+
+</form>
+
+<div class="secure">
+
+🔒 Seus dados estão protegidos. Não enviamos spam.
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<img class="ebook" src="ebook.png" alt="ebook">
+
 <script>
 
-document.getElementById("leadForm").addEventListener("submit", function(e){
+document.getElementById("leadForm").addEventListener("submit",function(e){
 
-    e.preventDefault();
+e.preventDefault();
 
-    const nome=document.getElementById("nome").value;
+const nome=document.getElementById("nome").value;
 
-    const email=document.getElementById("email").value;
+const email=document.getElementById("email").value;
 
-    const telefone=document.getElementById("telefone").value;
+const telefone=document.getElementById("telefone").value;
 
-    const numero="5511948174898";
+const numero="5511948174898";
 
-    const mensagem=
-`Olá!
+const mensagem=`Olá!
 
-Gostaria de receber o Ebook.
+Gostaria de receber o eBook "Princípios Bíblicos para Prosperidade".
 
 Nome: ${nome}
 
-Email: ${email}
+E-mail: ${email}
 
 WhatsApp: ${telefone}`;
 
-    window.open(
+window.open(
 
-    `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`,
+`https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`,
 
-    "_blank"
+"_blank"
 
-    );
+);
 
 });
 
 </script>
-</div>
-
-</div>
 
 </section>
 
+
+
+
 </main>
-
-
 
 <footer>
 
