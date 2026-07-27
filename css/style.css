@@ -292,7 +292,7 @@ nav a:hover::after{
 
     ),
 
-    url("../assets/img/hero-bg.png");
+    url("../hero-bg.png");
 
     background-size:cover;
 
@@ -924,7 +924,7 @@ opacity:1;
 
     ),
 
-    url("../assets/img/g1.png");
+    url("../g1.png");
 
     background-size:cover;
 
@@ -1345,7 +1345,7 @@ opacity:1;
 
     ),
 
-    url("../assets/img/g5.png");
+    url("../g5.png");
 
     background-size:cover;
 
