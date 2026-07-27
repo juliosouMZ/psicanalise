@@ -1,0 +1,29 @@
+:root{
+
+    --background:#080808;
+    --background-secondary:#111111;
+
+    --card:#181818;
+
+    --gold:#D4AF37;
+    --gold-light:#E8C869;
+    --gold-dark:#A57D1D;
+
+    --white:#FFFFFF;
+
+    --text:#ECECEC;
+    --text-light:#A6A6A6;
+
+    --border:#262626;
+
+    --success:#5FA66C;
+
+    --shadow:0 15px 40px rgba(0,0,0,.45);
+
+    --radius:18px;
+
+    --transition:.35s;
+
+    --container:1280px;
+
+}
