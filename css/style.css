@@ -515,3 +515,508 @@ opacity:1;
 }
 
 }
+
+/* ==========================================================
+   STYLE.CSS
+   PARTE 02
+   PRINCÍPIOS + AUTOR + TIMELINE + VERSE
+==========================================================*/
+
+/* =====================================
+    PRINCÍPIOS
+=====================================*/
+
+#principios{
+
+    background:#0d0d0d;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+#principios::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:700px;
+
+    height:700px;
+
+    background:radial-gradient(
+
+        rgba(212,175,55,.05),
+
+        transparent 70%
+
+    );
+
+    top:-250px;
+
+    right:-180px;
+
+    filter:blur(70px);
+
+}
+
+/* =====================================
+    GRID
+=====================================*/
+
+.principios-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:30px;
+
+    margin-top:70px;
+
+}
+
+/* =====================================
+    CARD
+=====================================*/
+
+.principio-card{
+
+    position:relative;
+
+    background:linear-gradient(
+
+        180deg,
+
+        rgba(255,255,255,.02),
+
+        rgba(255,255,255,.01)
+
+    );
+
+    border:1px solid rgba(255,255,255,.05);
+
+    border-radius:22px;
+
+    padding:38px;
+
+    transition:.45s;
+
+    overflow:hidden;
+
+    cursor:pointer;
+
+}
+
+.principio-card:hover{
+
+    transform:translateY(-10px);
+
+    border-color:rgba(212,175,55,.30);
+
+    box-shadow:
+
+    0 25px 50px rgba(0,0,0,.45),
+
+    0 0 40px rgba(212,175,55,.08);
+
+}
+
+/* linha dourada superior */
+
+.principio-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:0;
+
+    top:0;
+
+    width:100%;
+
+    height:3px;
+
+    background:linear-gradient(
+
+        90deg,
+
+        transparent,
+
+        var(--gold),
+
+        transparent
+
+    );
+
+}
+
+/* =====================================
+    NUMERO
+=====================================*/
+
+.principio-numero{
+
+    font-size:3rem;
+
+    font-weight:800;
+
+    color:rgba(212,175,55,.15);
+
+    margin-bottom:20px;
+
+}
+
+/* =====================================
+    TÍTULO
+=====================================*/
+
+.principio-card h3{
+
+    font-size:1.35rem;
+
+    margin-bottom:18px;
+
+    color:#fff;
+
+}
+
+/* =====================================
+    TEXTO
+=====================================*/
+
+.principio-card p{
+
+    color:var(--text-light);
+
+    line-height:1.8;
+
+}
+
+/* =====================================
+    AUTOR
+=====================================*/
+
+#autor{
+
+    background:#090909;
+
+}
+
+#autor .container{
+
+    display:grid;
+
+    grid-template-columns:430px 1fr;
+
+    gap:90px;
+
+    align-items:center;
+
+}
+
+/* =====================================
+    FOTO
+=====================================*/
+
+.author-photo{
+
+    position:relative;
+
+}
+
+.author-photo img{
+
+    width:100%;
+
+    border-radius:26px;
+
+    border:1px solid rgba(212,175,55,.12);
+
+    box-shadow:
+
+    0 30px 60px rgba(0,0,0,.45);
+
+}
+
+/* brilho */
+
+.author-photo::after{
+
+    content:"";
+
+    position:absolute;
+
+    width:280px;
+
+    height:280px;
+
+    background:radial-gradient(
+
+        rgba(212,175,55,.25),
+
+        transparent
+
+    );
+
+    right:-80px;
+
+    bottom:-60px;
+
+    filter:blur(45px);
+
+    z-index:-1;
+
+}
+
+/* =====================================
+    AUTOR
+=====================================*/
+
+.author-content h2{
+
+    font-family:'Playfair Display',serif;
+
+    font-size:3rem;
+
+    margin-bottom:25px;
+
+}
+
+.author-content p{
+
+    color:var(--text-light);
+
+    line-height:1.9;
+
+    margin-bottom:45px;
+
+}
+
+/* =====================================
+    QUOTE
+=====================================*/
+
+.author-quote{
+
+    border-left:4px solid var(--gold);
+
+    padding-left:25px;
+
+    margin-bottom:50px;
+
+    font-size:1.2rem;
+
+    color:#fff;
+
+    font-style:italic;
+
+}
+
+/* =====================================
+    TIMELINE
+=====================================*/
+
+.timeline{
+
+    position:relative;
+
+    padding-left:45px;
+
+}
+
+/* linha */
+
+.timeline::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:12px;
+
+    top:0;
+
+    width:2px;
+
+    height:100%;
+
+    background:
+
+    linear-gradient(
+
+        var(--gold),
+
+        rgba(212,175,55,.1)
+
+    );
+
+}
+
+/* ITEM */
+
+.timeline-item{
+
+    position:relative;
+
+    margin-bottom:45px;
+
+}
+
+/* BOLA */
+
+.timeline-item::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:-41px;
+
+    top:6px;
+
+    width:16px;
+
+    height:16px;
+
+    border-radius:50%;
+
+    background:var(--gold);
+
+    box-shadow:
+
+    0 0 18px rgba(212,175,55,.5);
+
+}
+
+.timeline-item h4{
+
+    color:#fff;
+
+    margin-bottom:10px;
+
+}
+
+.timeline-item p{
+
+    color:var(--text-light);
+
+    margin:0;
+
+}
+
+/* =====================================
+    VERSE
+=====================================*/
+
+.verse{
+
+    background:
+
+    linear-gradient(
+
+        rgba(0,0,0,.82),
+
+        rgba(0,0,0,.90)
+
+    ),
+
+    url("../assets/img/g1.png");
+
+    background-size:cover;
+
+    background-position:center;
+
+    text-align:center;
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+/* overlay dourado */
+
+.verse::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+
+    radial-gradient(
+
+        circle,
+
+        rgba(212,175,55,.06),
+
+        transparent 70%
+
+    );
+
+}
+
+/* texto */
+
+.verse h2{
+
+    position:relative;
+
+    z-index:2;
+
+    max-width:980px;
+
+    margin:auto;
+
+    font-size:3rem;
+
+    line-height:1.4;
+
+    font-family:'Playfair Display',serif;
+
+    color:#fff;
+
+}
+
+.verse span{
+
+    display:block;
+
+    margin-top:35px;
+
+    color:var(--gold);
+
+    font-size:1.1rem;
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+
+}
+
+/* pequena linha */
+
+.verse span::before{
+
+    content:"";
+
+    display:block;
+
+    width:80px;
+
+    height:2px;
+
+    margin:0 auto 25px;
+
+    background:var(--gold);
+
+}
+
+
+
