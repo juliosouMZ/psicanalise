@@ -445,25 +445,6 @@ Quero Receber
 
 
 
-<section id="faq">
-
-<div class="container">
-
-<h2>
-
-Perguntas Frequentes
-
-</h2>
-
-<div class="faq-container">
-
-</div>
-
-</div>
-
-</section>
-
-
 
 <section id="lead">
 
@@ -476,23 +457,129 @@ Perguntas Frequentes
 Comece sua Jornada Hoje
 
 </h2>
+<!-- FORMULÁRIO PREMIUM -->
 
-<form>
+<div style="max-width:650px;margin:auto;padding:50px;border-radius:24px;background:#121212;border:1px solid rgba(212,175,55,.15);box-shadow:0 25px 60px rgba(0,0,0,.45);">
 
-<input type="text" placeholder="Nome">
+    <p style="
+        color:#BDBDBD;
+        text-align:center;
+        margin-bottom:40px;
+        line-height:1.8;">
+        Preencha seus dados abaixo e receba acesso ao material.
+    </p>
 
-<input type="email" placeholder="E-mail">
+    <form id="leadForm" style="display:flex;flex-direction:column;gap:18px;">
 
-<input type="tel" placeholder="WhatsApp">
+        <input
+            id="nome"
+            type="text"
+            placeholder="Seu nome"
+            required
+            style="
+            padding:18px;
+            border-radius:14px;
+            border:1px solid #2b2b2b;
+            background:#181818;
+            color:#fff;
+            font-size:16px;
+            outline:none;">
 
-<button>
+        <input
+            id="email"
+            type="email"
+            placeholder="Seu melhor e-mail"
+            required
+            style="
+            padding:18px;
+            border-radius:14px;
+            border:1px solid #2b2b2b;
+            background:#181818;
+            color:#fff;
+            font-size:16px;
+            outline:none;">
 
-Quero Receber
+        <input
+            id="telefone"
+            type="tel"
+            placeholder="WhatsApp"
+            style="
+            padding:18px;
+            border-radius:14px;
+            border:1px solid #2b2b2b;
+            background:#181818;
+            color:#fff;
+            font-size:16px;
+            outline:none;">
 
-</button>
+        <button
+            type="submit"
+            style="
+            margin-top:10px;
+            padding:18px;
+            border:none;
+            border-radius:50px;
+            background:linear-gradient(90deg,#E8C869,#B88A21);
+            color:#000;
+            font-size:18px;
+            font-weight:bold;
+            cursor:pointer;
+            transition:.3s;">
 
-</form>
+            📖 Quero Receber o Ebook
 
+        </button>
+
+    </form>
+
+    <p style="
+        color:#777;
+        text-align:center;
+        margin-top:25px;
+        font-size:13px;">
+
+        Seus dados estão protegidos. Não enviamos spam.
+
+    </p>
+
+</div>
+
+<script>
+
+document.getElementById("leadForm").addEventListener("submit", function(e){
+
+    e.preventDefault();
+
+    const nome=document.getElementById("nome").value;
+
+    const email=document.getElementById("email").value;
+
+    const telefone=document.getElementById("telefone").value;
+
+    const numero="5511948174898";
+
+    const mensagem=
+`Olá!
+
+Gostaria de receber o Ebook.
+
+Nome: ${nome}
+
+Email: ${email}
+
+WhatsApp: ${telefone}`;
+
+    window.open(
+
+    `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`,
+
+    "_blank"
+
+    );
+
+});
+
+</script>
 </div>
 
 </div>
