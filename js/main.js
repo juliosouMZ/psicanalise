@@ -43,3 +43,30 @@ item.classList.toggle("active");
 });
 
 });
+const back=document.getElementById("backTop");
+
+window.addEventListener("scroll",()=>{
+
+if(window.scrollY>500){
+
+back.style.display="block";
+
+}else{
+
+back.style.display="none";
+
+}
+
+});
+
+back.addEventListener("click",()=>{
+
+window.scrollTo({
+
+top:0,
+
+behavior:"smooth"
+
+});
+
+});
